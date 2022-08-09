@@ -2,22 +2,22 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Register({ onRegister }) {
-  const [registrationDataUser, setRegistrationDataUser] = useState({
+  const [registrationUser, setRegistrationUser] = useState({
     email: '',
     password: '',
   });
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setRegistrationDataUser({
-      ...registrationDataUser,
+    setRegistrationUser({
+      ...registrationUser,
       [name]: value,
     });
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onRegister(registrationDataUser);
+    onRegister(registrationUser);
   }
 
   return (
@@ -45,7 +45,7 @@ function Register({ onRegister }) {
             placeholder="Пароль"
             minLength="5"
             maxLength="50"
-            value={registrationDataUser.password}
+            value={registrationUser.password}
             onChange={handleChange}
           />
         </div>
@@ -55,9 +55,9 @@ function Register({ onRegister }) {
           </button>
           <p className="login__text">
             Уже зарегистрированы?{' '}
-            <Link to="/sign-in" className="login__link">
+            {/* <Link to="/sign-in" className="login__link">
               Войти
-            </Link>
+            </Link> */}
           </p>
         </div>
       </form>
