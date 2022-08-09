@@ -1,27 +1,28 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-function Login({ onLogin }) {
-  const [loginDataUser, setLoginDataUser] = useState({
+function Register({ onRegister }) {
+  const [registrationDataUser, setRegistrationDataUser] = useState({
     email: '',
     password: '',
   });
 
   function handleChange(evt) {
     const { name, value } = evt.target;
-    setLoginDataUser((prevState) => ({ ...prevState, [name]: value }));
+    setRegistrationDataUser({
+      ...registrationDataUser,
+      [name]: value,
+    });
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onLogin({
-      email: loginDataUser.email,
-      password: loginDataUser.password,
-    });
+    onRegister(registrationDataUser);
   }
 
   return (
     <div className="login">
-      <h3 className="login__title">Вход</h3>
+      <h3 className="login__title">Регистрация</h3>
       <form className="login__form" onSubmit={handleSubmit}>
         <div>
           <input
@@ -32,7 +33,7 @@ function Login({ onLogin }) {
             className="login__input"
             placeholder="Email"
             autoComplete="on"
-            value={loginDataUser.email || ''}
+            value={registrationDataUser.email}
             onChange={handleChange}
           />
           <input
@@ -44,18 +45,24 @@ function Login({ onLogin }) {
             placeholder="Пароль"
             minLength="5"
             maxLength="50"
-            value={loginDataUser.password || ''}
+            value={registrationDataUser.password}
             onChange={handleChange}
           />
         </div>
         <div>
           <button type="submit" className="login__save">
-            Войти
+            Зарегистрироваться
           </button>
+          <p className="login__text">
+            Уже зарегистрированы?{' '}
+            <Link to="/sign-in" className="login__link">
+              Войти
+            </Link>
+          </p>
         </div>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Register;
