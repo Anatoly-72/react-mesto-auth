@@ -22,6 +22,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setСards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -162,7 +163,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header />
+          <Header loggedIn={isLoggedIn} />
           <Switch>
             <Route path="/sign-in">
               <Login />
@@ -173,6 +174,7 @@ function App() {
             <ProtectedRoute
               path="/"
               component={Main}
+              loggedIn={isLoggedIn}
               onEditProfile={handleEditProfileClick}
               onEditAvatar={handleEditAvatarClick}
               onAddPlace={handleAddPlaceClick}
