@@ -33,7 +33,7 @@ function Register({ onRegister }) {
             className="login__input"
             placeholder="Email"
             autoComplete="on"
-            value={registrationDataUser.email}
+            value={registrationUser.email}
             onChange={handleChange}
           />
           <input
