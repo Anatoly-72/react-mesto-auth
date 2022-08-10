@@ -13,6 +13,7 @@ import Login from './Login.js';
 import Register from './Register.js';
 import api from '../utils/api.js';
 import CurrentUserContext from '../contexts/CurrentUserContext.js';
+import InfoTooltip from './InfoTooltip.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -23,6 +24,7 @@ function App() {
   const [cards, setСards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [registrationStatus, setRegistrationStatus] = useState(false);
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -159,6 +161,21 @@ function App() {
       });
   }
 
+  function handleRegistration(data) {
+    return auth
+      .register(data)
+      .then((data) => {
+        setRegistrationStatus(true);
+        handleInfoTooltip();
+        history.push('/sign-in');
+      })
+      .catch((err) => {
+        console.log(err);
+        setRegistrationStatus(false);
+        handleInfoTooltip();
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -169,7 +186,7 @@ function App() {
               <Login />
             </Route>
             <Route path="/sign-up">
-              <Register />
+              <Register onRegister={handleRegistration} />
             </Route>
             <ProtectedRoute
               path="/"
@@ -183,15 +200,6 @@ function App() {
               onCardLike={handleCardLike}
               onCardDeleteClick={handleCardDelete}
             />
-            {/* <Main
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onEditAvatar={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-            /> */}
           </Switch>
           <Footer />
 
@@ -215,6 +223,12 @@ function App() {
             onAddPlace={handleAddPlaceSubmit}
             isLoading={isLoading}
           />
+
+          {/* <InfoTooltip
+            onClose={closeAllPopups}
+            isOpen={isInfoTooltipOpen}
+            isConfirmed={registrationStatus}
+          /> */}
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
