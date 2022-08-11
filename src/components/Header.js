@@ -22,9 +22,9 @@ function Header({ loggedIn, userEmail, onSignOut }) {
       {loggedIn && (
         <nav className="header__nav">
           <span className="header__user-email">{userEmail}</span>
-          <button className="header__link-exit" onClick={() => onSignOut()}>
+          <span className="header__link-exit" onClick={() => onSignOut()}>
             Выйти
-          </button>
+          </span>
         </nav>
       )}
     </header>

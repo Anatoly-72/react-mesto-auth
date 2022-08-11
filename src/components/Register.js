@@ -39,7 +39,7 @@ function Register({ onRegister }) {
           <input
             id="password"
             type="password"
-            name="code"
+            name="password"
             required
             className="login__input"
             placeholder="Пароль"

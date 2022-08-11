@@ -38,14 +38,14 @@ function Login({ onLogin }) {
           <input
             id="password"
             type="password"
-            name="code"
+            name="password"
             required
             className="login__input"
             placeholder="Пароль"
             autoComplete="password"
             minLength="5"
             maxLength="50"
-            // value={loginUser.password || ''}
+            value={loginUser.password || ''}
             onChange={handleChange}
           />
         </div>
