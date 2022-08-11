@@ -195,24 +195,24 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleTokenCheck() {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return;
-    }
-    // auth
-    //   .getContent(jwt)
-    //   .then((data) => {
-    //     setUserEmail(data.data.email);
-    //     setIsLoggedIn(true);
-    //     history.push('/');
-    //   })
-    //   .catch((err) => console.log(err));
-  }
+ function handleTokenCheck() {
+   const jwt = localStorage.getItem('jwt');
+   if (!jwt) {
+     return;
+   }
+   auth
+     .getContent(jwt)
+     .then((data) => {
+       setUserEmail(data.data.email);
+       setIsLoggedIn(true);
+       history.push('/');
+     })
+     .catch((err) => console.log(err));
+ }
 
-  useEffect(() => {
-    handleTokenCheck();
-  }, []);
+ useEffect(() => {
+   handleTokenCheck();
+ }, []);
 
   useEffect(() => {
     if (isLoggedIn) {

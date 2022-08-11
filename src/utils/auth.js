@@ -36,3 +36,13 @@ export const checkUserToken = (token) => {
     },
   }).then((res) => checkResponse(res));
 };
+
+export const getContent = (token) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => checkResponse(res));
+};

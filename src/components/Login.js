@@ -25,7 +25,7 @@ function Login({ onLogin }) {
       <form className="login__form" onSubmit={handleSubmit}>
         <div>
           <input
-            id="name-input"
+            id="email"
             type="email"
             name="email"
             required
@@ -36,15 +36,16 @@ function Login({ onLogin }) {
             onChange={handleChange}
           />
           <input
-            id="description-input"
+            id="password"
             type="password"
             name="code"
             required
             className="login__input"
             placeholder="Пароль"
+            autoComplete="password"
             minLength="5"
             maxLength="50"
-            value={loginUser.password || ''}
+            // value={loginUser.password || ''}
             onChange={handleChange}
           />
         </div>

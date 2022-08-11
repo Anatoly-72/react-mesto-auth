@@ -26,7 +26,7 @@ function Register({ onRegister }) {
       <form className="login__form" onSubmit={handleSubmit}>
         <div>
           <input
-            id="name-input"
+            id="email"
             type="email"
             name="email"
             required
@@ -37,12 +37,13 @@ function Register({ onRegister }) {
             onChange={handleChange}
           />
           <input
-            id="description-input"
+            id="password"
             type="password"
             name="code"
             required
             className="login__input"
             placeholder="Пароль"
+            autoComplete="password"
             minLength="5"
             maxLength="50"
             value={registrationUser.password}
