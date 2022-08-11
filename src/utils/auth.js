@@ -4,10 +4,12 @@ const checkResponse = (res) => {
     ? res.json()
     : Promise.reject(new Error(`Ошибка ${res.status}: ${res.statusText}`));
 };
+
 const headers = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
 };
+
 export const authorize = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
@@ -15,6 +17,7 @@ export const authorize = ({ email, password }) => {
     body: JSON.stringify({ email, password }),
   }).then((res) => checkResponse(res));
 };
+
 export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
@@ -22,6 +25,7 @@ export const register = ({ email, password }) => {
     body: JSON.stringify({ email, password }),
   }).then((res) => checkResponse(res));
 };
+
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
@@ -31,4 +35,3 @@ export const getContent = (token) => {
     },
   }).then((res) => checkResponse(res));
 };
-
