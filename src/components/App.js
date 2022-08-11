@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.js';
-// import * as auth from '../utils/auth.js';
+import * as auth from '../utils/auth.js';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -25,6 +25,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [registrationStatus, setRegistrationStatus] = useState(false);
+  const [InfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const history = useHistory();
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -73,10 +76,15 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleInfoTooltipPopupOpen() {
+    setInfoTooltipPopupOpen(true);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setInfoTooltipPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -166,13 +174,13 @@ function App() {
       .register(data)
       .then((data) => {
         setRegistrationStatus(true);
-        handleInfoTooltip();
+        handleInfoTooltipPopupOpen();
         history.push('/sign-in');
       })
       .catch((err) => {
         console.log(err);
         setRegistrationStatus(false);
-        handleInfoTooltip();
+        handleInfoTooltipPopupOpen();
       });
   }
 
@@ -224,11 +232,11 @@ function App() {
             isLoading={isLoading}
           />
 
-          {/* <InfoTooltip
+          <InfoTooltip
             onClose={closeAllPopups}
-            isOpen={isInfoTooltipOpen}
+            isOpen={InfoTooltipPopupOpen}
             isConfirmed={registrationStatus}
-          /> */}
+          />
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         </div>
