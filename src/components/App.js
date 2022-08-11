@@ -184,14 +184,60 @@ function App() {
       });
   }
 
+  function handleAuthorization(data) {
+    return auth
+      .authorize(data)
+      .then((data) => {
+        setIsLoggedIn(true);
+        localStorage.setItem('jwt', data.token);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleTokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
+    // auth
+    //   .getContent(jwt)
+    //   .then((data) => {
+    //     setUserEmail(data.data.email);
+    //     setIsLoggedIn(true);
+    //     history.push('/');
+    //   })
+    //   .catch((err) => console.log(err));
+  }
+
+  useEffect(() => {
+    handleTokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      history.push('/');
+    }
+  }, [isLoggedIn]);
+
+  const handleSignOut = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    history.push('/sign-in');
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header loggedIn={isLoggedIn} />
+          <Header
+            loggedIn={isLoggedIn}
+            userEmail={userEmail}
+            onSignOut={handleSignOut}
+          />
           <Switch>
             <Route path="/sign-in">
-              <Login />
+              <Login onLogin={handleAuthorization} />
             </Route>
             <Route path="/sign-up">
               <Register onRegister={handleRegistration} />
